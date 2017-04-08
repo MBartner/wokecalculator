@@ -6,7 +6,11 @@ var config = require('./config');
 var test = require('./test');
 var T = new twit(config);
 
-console.log("Up and running");
+app.set('port', (process.env.PORT || 5000));
+app.listen(app.get('port'), function() {
+  console.log('Node app is running on port', app.get('port'));
+});
+
 
 /*var tweetObj = [];
 
