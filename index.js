@@ -12,7 +12,7 @@ app.listen(app.get('port'), function() {
 });
 
 app.get('/', function(req, res) {
-  response.render('index')
+  res.render('index')
 });
 
 /*var tweetObj = [];
