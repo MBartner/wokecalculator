@@ -1,0 +1,26 @@
+{
+  "name": "wokecalculator",
+  "version": "1.0.0",
+  "description": "Determine user's social awareness based on social media data.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MBartner/wokecalculator.git"
+  },
+  "author": "Michael Bartner and Harrison Linowes",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MBartner/wokecalculator/issues"
+  },
+  "homepage": "https://github.com/MBartner/wokecalculator#readme",
+  "dependencies": {
+    "ejs": "^2.5.6",
+    "express": "^4.15.2",
+    "oauth": "^0.9.15",
+    "request": "^2.81.0",
+    "twit": "^2.2.5"
+  }
+}
