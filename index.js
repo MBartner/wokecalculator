@@ -6,7 +6,9 @@ var config = require('./config');
 var test = require('./test');
 var T = new twit(config);
 
-var tweetObj = [];
+console.log("Up and running");
+
+/*var tweetObj = [];
 
 var params = {
 	q: 'the', 
@@ -91,7 +93,7 @@ function printer(){
 	for(var i = 0; i < tweetObj.length; i++){
 		//console.log(tweetObj[i].date + ":" + tweetObj[i].text + "\n");
 	}
-}
+}*/
 
 /*
 T.get('search/tweets',params, gotData);
@@ -104,12 +106,12 @@ function gotData(err, data, response){
 }
 */
 
-app.listen(3000, function() {
+/*app.listen(3000, function() {
 	console.log('server running');
 })
 
 app.get('/', function(req, res){
     res.send('hello');
-})
+})*/
 
 // We good do how woke the feed is
