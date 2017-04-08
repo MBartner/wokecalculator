@@ -18,6 +18,7 @@
   "homepage": "https://github.com/MBartner/wokecalculator#readme",
   "dependencies": {
     "express": "^4.15.2",
+    "oauth": "^0.9.15",
     "request": "^2.81.0",
     "twit": "^2.2.5"
   }
