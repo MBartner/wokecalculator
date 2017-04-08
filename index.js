@@ -24,6 +24,7 @@ var tweetObj = [];
 
 app.get('/go', function(request, response){
 	T.get("statuses/home_timeline", {user_id: '850604404105465856', count: 3}, organizeData);
+	response.render('pages/index');
 });
 
 function organizeData(err, tweets, printer){
