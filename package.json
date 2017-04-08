@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/MBartner/wokecalculator/issues"
   },
-  "homepage": "https://github.com/MBartner/wokecalculator#readme"
+  "homepage": "https://github.com/MBartner/wokecalculator#readme",
+  "dependencies": {
+    "express": "^4.15.2"
+  }
 }
