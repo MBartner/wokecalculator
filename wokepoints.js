@@ -18,6 +18,7 @@ var test = fs.readFileSync('./files/test.txt', 'utf8');
 });*/
 
 function calculateTotalScore(array, callback){
+	"use strict"
 	var total_score = 0;
 	var allTweets = "";
 	var count = 0;
