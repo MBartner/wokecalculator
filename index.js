@@ -39,8 +39,8 @@ app.get('/go', function(request, response){
 function getTwitterId(err, users, results){
   console.log(users);
 
-  T.get("statuses/user_timeline", {user_id: users[0].id, count: 40}, organizeData);
-  T.get("statuses/home_timeline", {user_id: users[0].id, count: 39}, organizeData);
+  T.get("statuses/user_timeline", {user_id: users[0].id, count: 10}, organizeData);
+  T.get("statuses/home_timeline", {user_id: users[0].id, count: 10}, organizeData);
 
 }
 
