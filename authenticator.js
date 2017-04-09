@@ -13,6 +13,7 @@ var oauth = new OAuth(
 
 module.exports = {
 	redirectToTwitterLoginPage: function(req, res){
+		console.log("hello");
 		oauth.getOAuthRequestToken(function(error, oauth_token, oauth_token_secret, results){
 			if(error){
 				console.log(error);
