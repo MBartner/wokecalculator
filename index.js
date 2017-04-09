@@ -9,8 +9,7 @@ var app = express();
 
 app.set('port', (process.env.PORT || 5000));
 
-//app.use(express.static(__dirname + '/public'));
-
+app.use(express.static(__dirname + '/public'));
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
@@ -22,45 +21,68 @@ app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
 
-
 var T = new twit(config);
 var tweetObj = [];
 
-app.get('/go', function(request, response){
-  var user = request.query.user;
-  var type = request.query.type;
+app.get('/calculating', function(request, response){
+  response.render('pages/calculating');
+});
 
-  T.get("users/lookup", {screen_name: user}, getTwitterId);
+app.get('/calculate', function(request, response){
+  var user = request.query.user;
+  //var type = request.query.type;
+
+
+  //T.get("users/lookup", {screen_name: user}, getTwitterId);
 
   	//850604404105465856
-  response.render('pages/index');
+  T.get("users/lookup", {screen_name: user}, getTwitterId);
+  response.render('pages/calculating');
+  //console.log("Sent\n");
+});
+
+app.get('/results', function(req, res){
+  if(wp.getTotal() == "no"){
+    res.render('pages/calculating');
+  }
+  else{
+    res.send('<html><head><style>#submit {font-family: "Comfortaa";font-size: 25pt;background-color: #000000;color: #FFFFFF;padding: 10px;border-radius: 10px;-moz-border-radius: 10px;-webkit-border-radius: 10px;margin:10px;}</style><link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Comfortaa"></head><body style="background-color: azure; position: absolute;margin: auto;top: 0;right: 0;bottom: 0;left: 0;width: 50%;height: 50%;text-align: center;font-size:15pt;font-family:Comfortaa">Your woke score is: <strong>'
+     + wp.getTotal() + '</strong><br><br><form action="/"><input type="submit" value="Try another user!" id="submit"></form></body></html>'
+      );
+  }
 });
 
 function getTwitterId(err, users, results){
-  console.log(users);
-
-  T.get("statuses/user_timeline", {user_id: users[0].id, count: 10}, organizeData);
-  T.get("statuses/home_timeline", {user_id: users[0].id, count: 10}, organizeData);
-
+  //console.log(users);
+  //console.log("getTwitterId\n");
+  T.get("statuses/user_timeline", {user_id: users[0].id, count: 30}, organizeData);
+  //T.get("statuses/home_timeline", {user_id: users[0].id, count: 10}, organizeData);
 }
 
 function organizeData(err, tweets, results){
 	//console.log(tweets);
+  //console.log("organizeData\n")
 	for(var i = 0; i < tweets.length; i++){
 		tweetObj[i] = {
 			text: tweets[i].text,
 			date: par.parse(tweets[i].user.created_at)
 		}
 	}
-	for(var i = 0; i < tweetObj.length; i++){
-		//console.log(tweetObj[i].date + ":" + tweetObj[i].text + "\n");
-	}
 
 	wp.calculateTotalScore(tweetObj, function(score){
 
 		console.log("FINALSCORE: "+score);
+
 	});
 };
+
+//T.get("users/lookup", {screen_name: user}, function(err, users, results))
+
+
+
+
+
+
 
 /*var _twitterConsumerKey = "5nCxdlyOaKPDO872Ip3JY1N46";
 var _twitterConsumerSecret = "WyEF92yfazPVgQ7W6Z8F3FRVvlWuMGXPVxBggTwYqeImFDYN73";

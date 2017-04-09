@@ -35,10 +35,10 @@ function calculateTotalScore(array, callback){
 		//console.log("CURDATE:"+curDate);
 
 		calculateScoreForTweet(curTweet, curDate, function(score){
-			console.log("debug:");
+			/*console.log("debug:");
 			console.log("TWEET:"+curTweet);
 			console.log(score);
-			console.log(total_score);
+			console.log(total_score);*/
 			total_score+=score;
 
 			++count;
@@ -49,6 +49,8 @@ function calculateTotalScore(array, callback){
 					total_score = total_score/num;
 					var tempScore = getPersonalityScore(json);
 					total_score += tempScore;
+					total = total_score;
+					calculated = true;
 					callback(total_score)
 				});
 			}
@@ -58,6 +60,17 @@ function calculateTotalScore(array, callback){
 	// console.log("Last Print:");
 	// console.log(total_score);
 	// return total_score;
+}
+
+var total;
+var calculated = false;
+function getTotal(){
+	if(calculated){
+		return "" + total;
+	}
+	else{
+		return "no";
+	}
 }
 
 function calculateScoreForTweet(tweet, tweetDate, callback){ 
@@ -73,7 +86,7 @@ function calculateScoreForTweet(tweet, tweetDate, callback){
 			//score+=getPersonalityScore(json);
 			score+=badWordScore(tweet);
 			score+=getTrendingScore(trending, tweet);
-			console.log("calculateScoreForTweet:"+score);
+			//console.log("calculateScoreForTweet:"+score);
 			callback(score);
 		//});
 
@@ -84,7 +97,7 @@ function calculateScoreForTweet(tweet, tweetDate, callback){
 
 function badWordScore(tweet){
 
-	console.log("in bad words");
+	//console.log("in bad words");
 
 	var score = 0;
 
@@ -99,7 +112,7 @@ function badWordScore(tweet){
 		//console.log(cur);
 
 		if(bw1.indexOf(cur) != -1 || bw2.indexOf(cur) != -1){
-			console.log(cur);
+			//console.log(cur);
 			score++;
 			num++;
 		}
@@ -222,5 +235,6 @@ function getPersonality(allTweets, callback){
 
 module.exports = {
 	calculateTotalScore: calculateTotalScore,
+	getTotal, getTotal,
 	root: root
 }

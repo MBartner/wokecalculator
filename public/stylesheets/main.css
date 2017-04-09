@@ -1,0 +1,81 @@
+#body {
+    background-color: azure;
+}
+
+#header {
+    position: absolute;
+    top:0;
+    width: 100%;
+    height: 20px;
+    margin: 0;
+    padding:0;
+}
+
+#head-text-container {
+    width: 250px;
+    height: auto;
+    margin: 0 auto;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    background: #D3D3D3;
+}
+
+#head-text {
+    text-align: center;
+    font-family: "Comfortaa";
+    color: #FFFFFF;
+}
+
+#container {
+    position: absolute;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 50%;
+    height: 50%;
+    text-align: center;
+}
+
+#box{
+    font-family: "Comfortaa";
+}
+
+#textBox {
+    box-shadow: 0 4px 6px -5px hsl(0, 0%, 40%), inset 0px 4px 6px -5px black;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    height:10%;
+    width: 25%;
+    font-size:14pt;
+    font-family: "Comfortaa";
+
+}
+
+#submit {
+    font-family: "Comfortaa";
+    font-size: 25pt;
+    background-color: #000000;
+    color: #FFFFFF;
+    padding: 10px;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    margin:10px;
+}
+
+#main-text {
+    text-align: center;
+    font-family: "Comfortaa";
+    font-size: 30px;
+    font-size: 5vw;
+}
+
+#message {
+    text-align: center;
+    font-family: "Comfortaa";
+    font-size: 30px;
+    font-size: 2vw;
+}

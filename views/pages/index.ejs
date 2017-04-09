@@ -1,8 +1,35 @@
 <!DOCTYPE html>
 <html>
-<body>
-
-<style>
+    <head>
+        <% include ../partials/header.ejs %>
+    </head>
+<body id="body">
+    <div id="header">
+        <div id="head-text-container">
+            <div id="head-text">
+                Created by Mike Bartner and Harrison Linowes
+            </div>
+        </div>
+    </div>
+    <div id="container">
+        <div id="main-text">
+            Woke Calculator
+        </div>
+        <br><br>
+        <div id="box">
+            <form action="/calculate">
+                Twitter Handle:<br>
+                @<input type="text" id="textBox" name="user"><br><br>
+                <input type="submit" id="submit" value="Calculate Wokeness!" >
+            </form>
+        </div><br><br><br>
+        <div id="message">
+            Woke is a unit of measurement that measures how socially conscious one is. Woke is also used as an adjective. Someone who is 'woke' knows what's going on in the community and is familiar with current events and affairs. This website scrapes your twitter data using your tweets to determine how woke you are on social media.
+        </div>
+    </div>
+</body>
+</html>
+<!--<style>
 body {background-color: powderblue;}
 h1   {color: blue;}
 p    {color: red;}
@@ -13,7 +40,7 @@ p    {color: red;}
     <br>
     <br>
     <h1 align="center">Are You Woke?</h1>
-    <p align ="center">Woke is a unit of measurement that measures how socially consciouse one is. Woke is also used as an adjective. Someone who is 'woke' knows whats going on in the community and is familiar with current events and affairs. This website scrapes your twitter data using your tweets to determine how woke you are on social media.</p>
+    <p align ="center">Woke is a unit of measurement that measures how socially conscious one is. Woke is also used as an adjective. Someone who is 'woke' knows what's going on in the community and is familiar with current events and affairs. This website scrapes your twitter data using your tweets to determine how woke you are on social media.</p>
   </div>
 </div>
 <div>
@@ -29,6 +56,4 @@ p    {color: red;}
   <input type="submit" value="Submit" action="/go">
 </form> 
 </div>
-<hr>
-</body>
-</html>
+<hr>-->
