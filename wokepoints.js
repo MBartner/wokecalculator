@@ -19,25 +19,34 @@ var test = fs.readFileSync('./files/test.txt', 'utf8');
 
 function calculateTotalScore(array, callback){
 	var total_score = 0;
+	var allTweets = "";
 	var count = 0;
 	for(var i = 0; i < array.length; i++){
 
 		let curTweet = array[i].text;
 		let curDate = array[i].date;
 
-		console.log("CURTWEET:"+curTweet);
-		console.log("CURDATE:"+curDate);
+		allTweets = allTweets + " " + curTweet;
+
+		//console.log("CURTWEET:"+curTweet);
+		//console.log("CURDATE:"+curDate);
 
 		calculateScoreForTweet(curTweet, curDate, function(score){
-			//console.log("debug:");
+			console.log("debug:");
 			console.log("TWEET:"+curTweet);
 			console.log(score);
 			console.log(total_score);
 			total_score+=score;
+
 			++count;
 
 			if(count === array.length) {
-				callback(total_score)
+				//console.log("All Tweets:"+allTweets);
+				getPersonality(allTweets, function(json){
+					var tempScore = getPersonalityScore(json);
+					total_score += tempScore;
+					callback(total_score)
+				});
 			}
 		});
 	}
@@ -59,8 +68,8 @@ function calculateScoreForTweet(tweet, tweetDate, callback){
 
 			//score+=getPersonalityScore(json);
 			score+=badWordScore(tweet);
-			//score+=getTrendingScore(trending, tweet);
-			console.log("calcScore:"+score);
+			score+=getTrendingScore(trending, tweet);
+			console.log("calculateScoreForTweet:"+score);
 			callback(score);
 		//});
 
@@ -82,8 +91,8 @@ function badWordScore(tweet){
 	for(var i = 0; i < words.length; i++){
 
 		var cur = (words[i]).toLowerCase();
-
-		console.log(cur);
+		cur = cur.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
+		//console.log(cur);
 
 		if(bw1.indexOf(cur) != -1 || bw2.indexOf(cur) != -1){
 			console.log(cur);
@@ -182,7 +191,7 @@ function readInFile(file){
 		return data.split("\n");
 }
 
-function getPersonality(callback){
+function getPersonality(allTweets, callback){
 
 	var PersonalityInsightsV3 = require('watson-developer-cloud/personality-insights/v3');
 
@@ -193,7 +202,7 @@ function getPersonality(callback){
 	});
 
 	personality_insights.profile({
-		text: test, consumption_preferences: true}, function (err, response) {
+		text: allTweets, consumption_preferences: true}, function (err, response) {
 	    if (err)
 	      console.log('error:', err);
 	    else
