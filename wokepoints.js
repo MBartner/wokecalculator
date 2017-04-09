@@ -13,26 +13,54 @@ var bw1 = readInFile('./files/badWords.txt');
 var bw2 = readInFile('./files/badWords2.txt');
 var test = fs.readFileSync('./files/test.txt', 'utf8');
 
-
-calculateScore("hey asshole #pOpdatGum", "2017-4-08", function(s){
+/*calculateScore("hey asshole #pOpdatGum", "2017-4-08", function(s){
 	console.log(s);
-});
+});*/
 
-function calculateScore(tweet, tweetDate, callback){ 
+function calculateTotalScore(array, callback){
+	var total_score = 0;
+	var count = 0;
+	for(var i = 0; i < array.length; i++){
+
+		var curTweet = array[i].text;
+		var curDate = array[i].date;
+
+		console.log(curTweet);
+
+		calculateScoreForTweet(curTweet, curDate, function(score){
+			//console.log("debug:");
+			console.log("TWEET:"+curTweet);
+			console.log(score);
+			console.log(total_score);
+			total_score+=score;
+			++count;
+
+			if(count === array.length) {
+				callback(total_score)
+			}
+		});
+	}
+
+	// console.log("Last Print:");
+	// console.log(total_score);
+	// return total_score;
+}
+
+function calculateScoreForTweet(tweet, tweetDate, callback){ 
 
 	getTrending(tweetDate, function(trending){
 
-		getPersonality(function(json){
+		//getPersonality(function(json){
 
-			console.log(trending);
+			//console.log(trending);
 
 			var score = 0;
 
-			score+=getPersonalityScore(json);
+			//score+=getPersonalityScore(json);
 			score+=badWordScore(tweet);
-			score+=getTrendingScore(trending, tweet);
+			//score+=getTrendingScore(trending, tweet);
 			callback(score);
-		});
+		//});
 
 	});
 }
@@ -44,15 +72,15 @@ function badWordScore(tweet){
 	var score = 0;
 
 	words = tweet.split(" ");
-	console.log(words[1]);
-	console.log(bw1.indexOf(words[1]));
+	//console.log(words[1]);
+	//console.log(bw1.indexOf(words[1]));
 
 	for(var i = 0; i < words.length; i++){
 
 		var cur = words[i];
 
 		if(bw1.indexOf(cur) != -1 || bw2.indexOf(cur) != -1){
-
+			//console.log(cur);
 			score++;
 		}
 	}
@@ -88,28 +116,28 @@ function getPersonalityScore(json){
 	var self_trancendance = JSON.stringify((json.values)[4]);
 	//console.log(JSON.parse(self_trancendance).name);
 	var selfPerc = JSON.parse(self_trancendance).percentile;
-	console.log(selfPerc);
+	//console.log(selfPerc);
 
 	var Conscientiousness = JSON.stringify((json.personality)[1]);
 	//console.log(JSON.parse(Conscientiousness).name);
 	var ConsPerc = JSON.parse(Conscientiousness).percentile;
-	console.log(ConsPerc);
+	//console.log(ConsPerc);
 
 	var openness = JSON.stringify((json.personality)[0]);
 	//console.log(JSON.parse(openness).name);
 	var openPerc = JSON.parse(openness).percentile;
-	console.log(openPerc);
+	//console.log(openPerc);
 
 	var agreeableness = JSON.stringify((json.personality)[3]);
 	//console.log(JSON.parse(agreeableness).name);
 	var agreePerc = JSON.parse(agreeableness).percentile;
-	console.log(agreePerc);
+	//console.log(agreePerc);
 
 	score = selfPerc + ConsPerc + openPerc + agreePerc;
 	score/=4;
 
 	score = (20*(score - .5));
-	console.log(score);
+	//console.log(score);
 	return score;
 }
 
@@ -172,6 +200,6 @@ function getPersonality(callback){
 }
 
 module.exports = {
-	calculateScore: calculateScore,
+	calculateTotalScore: calculateTotalScore,
 	root: root
 }

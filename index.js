@@ -3,6 +3,8 @@ var twit = require('twit');
 var config = require('./config');
 var OAuth= require('oauth').OAuth;
 
+var wp = require('./wokepoints');
+
 var app = express();
 
 app.set('port', (process.env.PORT || 5000));
@@ -24,7 +26,7 @@ var T = new twit(config);
 var tweetObj = [];
 
 app.get('/go', function(request, response){
-	T.get("statuses/home_timeline", {user_id: '850604404105465856', count: 3}, organizeData);
+	T.get("statuses/user_timeline", {user_id: '850604404105465856', count: 4}, organizeData);
 	response.render('pages/index');
 });
 
@@ -37,8 +39,13 @@ function organizeData(err, tweets, printer){
 		}
 	}
 	for(var i = 0; i < tweetObj.length; i++){
-		console.log(tweetObj[i].date + ":" + tweetObj[i].text + "\n");
+		//console.log(tweetObj[i].date + ":" + tweetObj[i].text + "\n");
 	}
+
+	wp.calculateTotalScore(tweetObj, function(score){
+
+		console.log(score);
+	});
 };
 
 /*var _twitterConsumerKey = "5nCxdlyOaKPDO872Ip3JY1N46";
@@ -96,7 +103,7 @@ app.get('/sessions/callback', function(req, res){
       });  
     }
   });
-});*/
+});
 
 
 var url = require('url');
@@ -115,7 +122,7 @@ app.get(url.parse(config.oauth_callback).path, function(req, res) {
 			res.send("Authentication Successful");
 		}
 	});
-});
+});*/
 
 
 
