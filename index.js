@@ -3,7 +3,6 @@ var twit = require('twit');
 var config = require('./config');
 var OAuth= require('oauth').OAuth;
 var par = require('./parse');
-
 var wp = require('./wokepoints');
 
 var app = express();
@@ -23,16 +22,26 @@ app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
 
+
 var T = new twit(config);
 var tweetObj = [];
 
 app.get('/go', function(request, response){
-	//850604404105465856
-	T.get("statuses/user_timeline", {user_id: '850604404105465856', count: 17}, organizeData);
-	response.render('pages/index');
+  var user = request.query.user;
+  var type = request.query.type;
+  
+  T.get("users/lookup", {screen_name: user}, getTwitterId);
+  	//850604404105465856
+  response.render('pages/index');
 });
 
-function organizeData(err, tweets, printer){
+function getTwitterId(err, users, results){
+  console.log(users);
+
+  T.get("statuses/user_timeline", {user_id: users[0].id, count: 17}, organizeData);
+}
+
+function organizeData(err, tweets, results){
 	//console.log(tweets);
 	for(var i = 0; i < tweets.length; i++){
 		tweetObj[i] = {
