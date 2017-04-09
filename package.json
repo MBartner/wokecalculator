@@ -1,7 +1,7 @@
 {
   "name": "wokecalculator",
   "version": "1.0.0",
-  "description": "A sample Node.js app using Express 4",
+  "description": "Determine user's social awareness based on their social media data.",
   "engines": {
     "node": "5.9.1"
   },
