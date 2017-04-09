@@ -1,7 +1,7 @@
 var express = require('express');
 var twit = require('twit');
 var config = require('./config');
-var OAuth = require('OAuth');
+var OAuth= require('oauth').OAuth;
 
 var app = express();
 
