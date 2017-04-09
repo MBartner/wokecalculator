@@ -1,8 +1,4 @@
 
-//2017-04-11
-// Sat Mar 26 16:53:39 +00000 2011
-console.log(parse("Sat Mar 26 16:53:39 +00000 2011"));
-
 function parse(str) {
 	var ary = str.split(" ");
 	var mon = "";
