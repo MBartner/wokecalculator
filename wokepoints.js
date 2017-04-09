@@ -17,6 +17,8 @@ var test = fs.readFileSync('./files/test.txt', 'utf8');
 	console.log(s);
 });*/
 
+var num = 0;
+
 function calculateTotalScore(array, callback){
 	"use strict"
 	var total_score = 0;
@@ -44,6 +46,7 @@ function calculateTotalScore(array, callback){
 			if(count === array.length) {
 				//console.log("All Tweets:"+allTweets);
 				getPersonality(allTweets, function(json){
+					total_score = total_score/num;
 					var tempScore = getPersonalityScore(json);
 					total_score += tempScore;
 					callback(total_score)
@@ -98,6 +101,7 @@ function badWordScore(tweet){
 		if(bw1.indexOf(cur) != -1 || bw2.indexOf(cur) != -1){
 			console.log(cur);
 			score++;
+			num++;
 		}
 	}
 
@@ -119,6 +123,7 @@ function getTrendingScore(trendingData, tweet){
 		if((tweet.toLowerCase()).includes(cur.toLowerCase())){
 
 			score+=1;
+			num++;
 		}		
 	}
 
@@ -152,7 +157,7 @@ function getPersonalityScore(json){
 	score = selfPerc + ConsPerc + openPerc + agreePerc;
 	score/=4;
 
-	score = (20*(score - .5));
+	score = (score - .5);
 	//console.log(score);
 	return score;
 }
