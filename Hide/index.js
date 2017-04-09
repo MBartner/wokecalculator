@@ -15,14 +15,14 @@ app.get('/', function(req, res) {
   res.render('index')
 });
 
-/*var tweetObj = [];
+var tweetObj = [];
 
 var params = {
 	q: 'the', 
 	count: 10
 };
 
-var OAuth = require('OAuth');
+/*var OAuth = require('OAuth');
 var OAuth= require('oauth').OAuth;
 
 var oa = new OAuth(
@@ -72,7 +72,7 @@ app.get('/auth/twitter/callback', function(req, res, next){
 		);
 	} else
 		next(new Error("you're not supposed to be here."))
-});
+});*/
 
 
 
@@ -92,7 +92,7 @@ function organizeData(err, tweets, printer){
 		}
 	}
 	for(var i = 0; i < tweetObj.length; i++){
-		//console.log(tweetObj[i].date + ":" + tweetObj[i].text + "\n");
+		console.log(tweetObj[i].date + ":" + tweetObj[i].text + "\n");
 	}
 }
 
@@ -100,7 +100,7 @@ function printer(){
 	for(var i = 0; i < tweetObj.length; i++){
 		//console.log(tweetObj[i].date + ":" + tweetObj[i].text + "\n");
 	}
-}*/
+}
 
 /*
 T.get('search/tweets',params, gotData);

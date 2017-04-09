@@ -99,7 +99,7 @@ app.get('/sessions/callback', function(req, res){
 });*/
 
 
-var url = require('url');
+/*var url = require('url');
 var express = require('express');
 var authenticator = require('./authenticator');
 var config = require('./configger');
@@ -115,7 +115,7 @@ app.get(url.parse(config.oauth_callback).path, function(req, res) {
 			res.send("Authentication Successful");
 		}
 	});
-});
+});*/
 
 
 

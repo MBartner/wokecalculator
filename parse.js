@@ -1,46 +1,47 @@
 
 //2017-04-11
 // Sat Mar 26 16:53:39 +00000 2011
+console.log(parse("Sat Mar 26 16:53:39 +00000 2011"));
 
 function parse(str) {
 	var ary = str.split(" ");
 	var mon = "";
 	switch(ary[1]) {
 		case "Jan":
-			mon = 01;
+			mon = "01";
 			break;
 		case "Feb":
-			mon = 02;
+			mon = "02";
 			break;
 		case "Mar":
-			mon = 03;
+			mon = "03";
 			break;
 		case "Apr":
-			mon = 04;
+			mon = "04";
 			break;
 		case "May":
-			mon = 05;
+			mon = "05";
 			break;
 		case "Jun":
-			mon = 06;
+			mon = "06";
 			break;
 		case "Jul":
-			mon = 07;
+			mon = "07";
 			break;
 		case "Aug":
-			mon = 08;
+			mon = "08";
 			break;
 		case "Sep":
-			mon = 09;
+			mon = "09";
 			break;
 		case "Oct":
-			mon = 10;
+			mon = "10";
 			break;
 		case "Nov":
-			mon = 11;
+			mon = "11";
 			break;
 		case "Dec":
-			mon = 12;
+			mon = "12";
 			break;
 	}
 	return ary[5] + "-" + mon + "-" + ary[2];
