@@ -1,10 +1,11 @@
 {
+	"port":"3201",
 	"request_token_url": "https://api.twitter.com/oauth/request_token",
 	"access_token_url": "https://api.twitter.com/oauth/access_token",
-	"authorize_url": "https://twitter.com/oauth/authorize",
+	"authorize_url": "https://api.twitter.com/oauth/authorize",
 	"consumer_key": "5nCxdlyOaKPDO872Ip3JY1N46",
 	"consumer_secret": "WyEF92yfazPVgQ7W6Z8F3FRVvlWuMGXPVxBggTwYqeImFDYN73",
 	"oauth_version": "1.0",
 	"oauth_signature": "HMAC-SHA1",
-	"oauth_callback": "https://wokecalculator.herokuapp.com/"
+	"oauth_callback": "https://wokecalculator.herokuapp.com/callb.html"
 }
