@@ -39,7 +39,7 @@ function organizeData(err, tweets, printer){
 	for(var i = 0; i < tweetObj.length; i++){
 		console.log(tweetObj[i].date + ":" + tweetObj[i].text + "\n");
 	}
-}
+};
 
 /*var _twitterConsumerKey = "5nCxdlyOaKPDO872Ip3JY1N46";
 var _twitterConsumerSecret = "WyEF92yfazPVgQ7W6Z8F3FRVvlWuMGXPVxBggTwYqeImFDYN73";
@@ -104,10 +104,10 @@ var express = require('express');
 var authenticator = require('./authenticator');
 var config = require('./configger');
 app.use(require('cookie-parser')());
-app.get('/auth/twitter', authenticator.redirectToTwitterLoginPAge);
+app.get('/auth/twitter', authenticator.redirectToTwitterLoginPage);
 
-app.get(url.parse(config.oauth_callback).path, fucntion(req, res){
-	authenticator.authenticate(req, res, function(err){
+app.get(url.parse(config.oauth_callback).path, function(req, res) {
+	authenticator.authenticate(req, res, function(err) {
 		if(err){
 			console.log(err);
 			res.sendStatus(401);
