@@ -2,6 +2,7 @@ var express = require('express');
 var twit = require('twit');
 var config = require('./config');
 var OAuth= require('oauth').OAuth;
+var par = require('./parse');
 
 var wp = require('./wokepoints');
 
@@ -35,7 +36,7 @@ function organizeData(err, tweets, printer){
 	for(var i = 0; i < tweets.length; i++){
 		tweetObj[i] = {
 			text: tweets[i].text,
-			date: tweets[i].user.created_at
+			date: par.parse(tweets[i].user.created_at)
 		}
 	}
 	for(var i = 0; i < tweetObj.length; i++){
@@ -44,7 +45,7 @@ function organizeData(err, tweets, printer){
 
 	wp.calculateTotalScore(tweetObj, function(score){
 
-		console.log(score);
+		console.log("FINALSCORE: "+score);
 	});
 };
 

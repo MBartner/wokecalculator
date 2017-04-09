@@ -22,10 +22,11 @@ function calculateTotalScore(array, callback){
 	var count = 0;
 	for(var i = 0; i < array.length; i++){
 
-		var curTweet = array[i].text;
-		var curDate = array[i].date;
+		let curTweet = array[i].text;
+		let curDate = array[i].date;
 
-		console.log(curTweet);
+		console.log("CURTWEET:"+curTweet);
+		console.log("CURDATE:"+curDate);
 
 		calculateScoreForTweet(curTweet, curDate, function(score){
 			//console.log("debug:");
@@ -59,6 +60,7 @@ function calculateScoreForTweet(tweet, tweetDate, callback){
 			//score+=getPersonalityScore(json);
 			score+=badWordScore(tweet);
 			//score+=getTrendingScore(trending, tweet);
+			console.log("calcScore:"+score);
 			callback(score);
 		//});
 
@@ -69,6 +71,8 @@ function calculateScoreForTweet(tweet, tweetDate, callback){
 
 function badWordScore(tweet){
 
+	console.log("in bad words");
+
 	var score = 0;
 
 	words = tweet.split(" ");
@@ -77,10 +81,12 @@ function badWordScore(tweet){
 
 	for(var i = 0; i < words.length; i++){
 
-		var cur = words[i];
+		var cur = (words[i]).toLowerCase();
+
+		console.log(cur);
 
 		if(bw1.indexOf(cur) != -1 || bw2.indexOf(cur) != -1){
-			//console.log(cur);
+			console.log(cur);
 			score++;
 		}
 	}
