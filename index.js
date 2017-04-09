@@ -27,6 +27,7 @@ var T = new twit(config);
 var tweetObj = [];
 
 app.get('/go', function(request, response){
+	//850604404105465856
 	T.get("statuses/user_timeline", {user_id: '850604404105465856', count: 17}, organizeData);
 	response.render('pages/index');
 });
