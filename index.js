@@ -41,51 +41,63 @@ function organizeData(err, tweets, printer){
 	}
 }
 
-var oa = new OAuth(
-	"https://api.twitter.com/oauth/request_token",
-	"https://api.twitter.com/oauth/access_token",
-	"5nCxdlyOaKPDO872Ip3JY1N46",
-	"WyEF92yfazPVgQ7W6Z8F3FRVvlWuMGXPVxBggTwYqeImFDYN73",
-	"1.0",
-	"/auth/twitter/callback",
-	"HMAC-SHA1"
-);
+var _twitterConsumerKey = "5nCxdlyOaKPDO872Ip3JY1N46";
+var _twitterConsumerSecret = "WyEF92yfazPVgQ7W6Z8F3FRVvlWuMGXPVxBggTwYqeImFDYN73";
 
-app.get('/auth/twitter', function(req, res){
-	oa.getOAuthRequestToken(function(error, oauth_token, oauth_token_secret, results){
-		if (error) {
-			console.log(error);
-			res.send("yeah no. didn't work.")
-		}
-		else {
-			req.session.oauth = {};
-			req.session.oauth.token = oauth_token;
-			console.log('oauth.token: ' + req.session.oauth.token);
-			req.session.oauth.token_secret = oauth_token_secret;
-			console.log('oauth.token_secret: ' + req.session.oauth.token_secret);
-			res.redirect('https://twitter.com/oauth/authenticate?oauth_token='+oauth_token)
-	}
-	});
+function consumer() {
+  return new oauth.OAuth(
+    "https://twitter.com/oauth/request_token", "https://twitter.com/oauth/access_token", 
+    _twitterConsumerKey, _twitterConsumerSecret, "1.0A", "http://badgestar.com/sessions/callback", "HMAC-SHA1");   
+}
+
+app.configure('development', function(){
+  app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
+  app.use(express.logger());
+  app.use(express.cookieDecoder());
+  app.use(express.session());
 });
 
-app.get('/auth/twitter/callback', function(req, res, next){
-	if (req.session.oauth) {
-		req.session.oauth.verifier = req.query.oauth_verifier;
-		var oauth = req.session.oauth;
+app.dynamicHelpers({
+  session: function(req, res){
+    return req.session;
+  }
+});
 
-		oa.getOAuthAccessToken(oauth.token,oauth.token_secret,oauth.verifier, 
-		function(error, oauth_access_token, oauth_access_token_secret, results){
-			if (error){
-				console.log(error);
-				res.send("yeah something broke.");
-			} else {
-				req.session.oauth.access_token = oauth_access_token;
-				req.session.oauth,access_token_secret = oauth_access_token_secret;
-				console.log(results);
-				res.send("worked. nice one.");
-			}
-		}
-		);
-	} else
-		next(new Error("you're not supposed to be here."))
+app.get('/', function(req, res){
+  res.send('Hello World');
+});
+
+app.get('/sessions/connect', function(req, res){
+  consumer().getOAuthRequestToken(function(error, oauthToken, oauthTokenSecret, results){
+    if (error) {
+      res.send("Error getting OAuth request token : " + sys.inspect(error), 500);
+    } else {  
+      req.session.oauthRequestToken = oauthToken;
+      req.session.oauthRequestTokenSecret = oauthTokenSecret;
+      res.redirect("https://twitter.com/oauth/authorize?oauth_token="+req.session.oauthRequestToken);      
+    }
+  });
+});
+
+app.get('/sessions/callback', function(req, res){
+  sys.puts(">>"+req.session.oauthRequestToken);
+  sys.puts(">>"+req.session.oauthRequestTokenSecret);
+  sys.puts(">>"+req.query.oauth_verifier);
+  consumer().getOAuthAccessToken(req.session.oauthRequestToken, req.session.oauthRequestTokenSecret, req.query.oauth_verifier, function(error, oauthAccessToken, oauthAccessTokenSecret, results) {
+    if (error) {
+      res.send("Error getting OAuth access token : " + sys.inspect(error) + "["+oauthAccessToken+"]"+ "["+oauthAccessTokenSecret+"]"+ "["+sys.inspect(results)+"]", 500);
+    } else {
+      req.session.oauthAccessToken = oauthAccessToken;
+      req.session.oauthAccessTokenSecret = oauthAccessTokenSecret;
+      // Right here is where we would write out some nice user stuff
+      consumer.get("http://twitter.com/account/verify_credentials.json", req.session.oauthAccessToken, req.session.oauthAccessTokenSecret, function (error, data, response) {
+        if (error) {
+          res.send("Error getting twitter screen name : " + sys.inspect(error), 500);
+        } else {
+          req.session.twitterScreenName = data["screen_name"];    
+          res.send('You are signed in: ' + req.session.twitterScreenName)
+        }  
+      });  
+    }
+  });
 });
