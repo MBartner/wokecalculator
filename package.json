@@ -1,6 +1,6 @@
 {
-  "name": "node-js-getting-started",
-  "version": "0.2.5",
+  "name": "wokecalculator",
+  "version": "1.0.0",
   "description": "A sample Node.js app using Express 4",
   "engines": {
     "node": "5.9.1"
@@ -22,7 +22,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/heroku/node-js-getting-started.git"
+    "url": "git+https://github.com/MBartner/wokecalculator.git"
   },
   "keywords": [
     "node",
@@ -31,9 +31,9 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/heroku/node-js-getting-started/issues"
+    "url": "https://github.com/MBartner/wokecalculator/issues"
   },
-  "homepage": "https://github.com/heroku/node-js-getting-started#readme",
+  "homepage": "https://wokecalculator.herokuapp.com/",
   "devDependencies": {},
-  "author": ""
+  "author": "Michael Bartner and Harrison Linowes"
 }
