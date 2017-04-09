@@ -10,11 +10,15 @@
     "start": "node index.js"
   },
   "dependencies": {
+    "cheerio": "^0.22.0",
     "cookie-parser": "^1.4.3",
     "ejs": "2.4.1",
     "express": "4.13.3",
+    "fs": "0.0.1-security",
     "oauth": "^0.9.15",
-    "twit": "^2.2.5"
+    "request": "^2.81.0",
+    "twit": "^2.2.5",
+    "url": "^0.11.0"
   },
   "repository": {
     "type": "git",
