@@ -29,8 +29,9 @@ var tweetObj = [];
 app.get('/go', function(request, response){
   var user = request.query.user;
   var type = request.query.type;
-  
+
   T.get("users/lookup", {screen_name: user}, getTwitterId);
+
   	//850604404105465856
   response.render('pages/index');
 });
@@ -38,7 +39,9 @@ app.get('/go', function(request, response){
 function getTwitterId(err, users, results){
   console.log(users);
 
-  T.get("statuses/user_timeline", {user_id: users[0].id, count: 17}, organizeData);
+  T.get("statuses/user_timeline", {user_id: users[0].id, count: 40}, organizeData);
+  T.get("statuses/home_timeline", {user_id: users[0].id, count: 39}, organizeData);
+
 }
 
 function organizeData(err, tweets, results){
